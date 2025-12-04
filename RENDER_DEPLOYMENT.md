@@ -17,10 +17,10 @@ This project consists of three separate applications that need to be deployed on
 **Create New Web Service:**
 
 - **Name:** `postureguard-django`
-- **Root Directory:** `DjangoBackend`
+- **Root Directory:** `DjangoBackend/gemini variant/posture_project/posture_project`
 - **Environment:** `Python 3`
-- **Build Command:** `bash build.sh`
-- **Start Command:** `cd "gemini variant/posture_project/posture_project" && daphne -b 0.0.0.0 -p $PORT posture_project.asgi:application`
+- **Build Command:** `pip install -r requirements.txt && python manage.py migrate`
+- **Start Command:** `daphne -b 0.0.0.0 -p $PORT posture_project.asgi:application`
 
 **Environment Variables:**
 
