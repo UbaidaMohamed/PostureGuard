@@ -253,21 +253,9 @@ export default function Video() {
         </p>
       </div>
 
-      {/* Alert Banner */}
-      {showAlert && (
-        <Card className="border-warning bg-warning/10 animate-in slide-in-from-top">
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-2">
-              <AlertTriangle className="w-5 h-5 text-warning" />
-              <span className="font-medium text-warning">Posture Alert: {getStatusText()}</span>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Video Feed */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-4">
           <Card className="card-elevated">
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -325,6 +313,18 @@ export default function Video() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Alert Banner - Under Video */}
+          {showAlert && (
+            <Card className="border-warning bg-warning/10 animate-in slide-in-from-top">
+              <CardContent className="pt-6">
+                <div className="flex items-center space-x-2">
+                  <AlertTriangle className="w-5 h-5 text-warning" />
+                  <span className="font-medium text-warning">Posture Alert: {getStatusText()}</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Controls Panel */}

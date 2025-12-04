@@ -15,6 +15,7 @@ This project consists of three separate applications that need to be deployed on
 ### 1. Django Backend (Posture Detection)
 
 **Create New Web Service:**
+
 - **Name:** `postureguard-django`
 - **Root Directory:** `DjangoBackend`
 - **Environment:** `Python 3`
@@ -22,6 +23,7 @@ This project consists of three separate applications that need to be deployed on
 - **Start Command:** `cd "gemini variant/posture_project/posture_project" && daphne -b 0.0.0.0 -p $PORT posture_project.asgi:application`
 
 **Environment Variables:**
+
 ```
 PYTHON_VERSION=3.11.9
 DEBUG=False
@@ -34,6 +36,7 @@ CORS_ALLOWED_ORIGINS=https://postureguard-frontend.onrender.com
 ### 2. Node.js Backend (Authentication)
 
 **Create New Web Service:**
+
 - **Name:** `postureguard-auth`
 - **Root Directory:** `backend`
 - **Environment:** `Node`
@@ -41,6 +44,7 @@ CORS_ALLOWED_ORIGINS=https://postureguard-frontend.onrender.com
 - **Start Command:** `npm start`
 
 **Environment Variables:**
+
 ```
 PORT=5000
 MONGODB_URI=<your-mongodb-connection-string>
@@ -49,6 +53,7 @@ NODE_ENV=production
 ```
 
 **MongoDB Setup:**
+
 - Option A: Use MongoDB Atlas (free tier)
 - Option B: Create MongoDB on Render (paid)
 
@@ -57,12 +62,14 @@ NODE_ENV=production
 ### 3. React Frontend
 
 **Create New Static Site:**
+
 - **Name:** `postureguard-frontend`
 - **Root Directory:** `ReactApp/frontend`
 - **Build Command:** `npm install && npm run build`
 - **Publish Directory:** `dist`
 
 **Environment Variables:**
+
 ```
 VITE_API_URL=https://postureguard-auth.onrender.com/api
 VITE_DJANGO_URL=https://postureguard-django.onrender.com
@@ -78,23 +85,29 @@ VITE_WS_URL=wss://postureguard-django.onrender.com/ws/posture/
 After deployment, update these files with your Render URLs:
 
 **1. `ReactApp/frontend/src/lib/api.ts`:**
+
 ```typescript
-baseURL: "https://postureguard-auth.onrender.com/api"
+baseURL: "https://postureguard-auth.onrender.com/api";
 ```
 
 **2. `ReactApp/frontend/src/pages/Video.tsx`:**
+
 ```typescript
-const ws = new WebSocket('wss://postureguard-django.onrender.com/ws/posture/');
+const ws = new WebSocket("wss://postureguard-django.onrender.com/ws/posture/");
 ```
 
 **3. `ReactApp/frontend/src/pages/Dashboard.tsx`:**
+
 ```typescript
-const response = await fetch('https://postureguard-django.onrender.com/posture/dashboard/stats');
+const response = await fetch(
+  "https://postureguard-django.onrender.com/posture/dashboard/stats"
+);
 ```
 
 ### Update Django CORS Settings
 
 In `DjangoBackend/gemini variant/posture_project/posture_project/posture_project/settings.py`:
+
 ```python
 ALLOWED_HOSTS = ['postureguard-django.onrender.com']
 CORS_ALLOWED_ORIGINS = [
@@ -107,15 +120,18 @@ CORS_ALLOWED_ORIGINS = [
 ## Important Notes
 
 1. **Free Tier Limitations:**
+
    - Services spin down after 15 minutes of inactivity
    - First request after spin-down takes ~30-60 seconds
    - 750 hours/month free per service
 
 2. **MongoDB:**
+
    - Must use MongoDB Atlas or external provider
    - Render doesn't offer free MongoDB
 
 3. **WebSocket:**
+
    - Django's Daphne server handles WebSocket connections
    - Make sure to use `wss://` (secure) in production
 
